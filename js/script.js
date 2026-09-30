@@ -1,4 +1,4 @@
-const menuData = {
+const defaultMenuData = {
     "dia-principales": [
         { name: "Pollo al horno", price: 6000, desc: "Con puré de papas en plato blanco", img: "assets/Platos Principales/Pollo al horno.png" },
         { name: "Filete de pollo", price: 6500, desc: "Plato plano", img: "assets/Platos Principales/Filete de pollo.png" },
@@ -69,7 +69,7 @@ const menuData = {
     ]
 };
 
-let cart = {};
+let menuData = JSON.parse(localStorage.getItem('restaurant_menu_data')) || defaultMenuData;
 
 function renderMenu() {
     for (const [key, items] of Object.entries(menuData)) {
@@ -77,31 +77,27 @@ function renderMenu() {
         if (!container) continue;
 
         container.innerHTML = '';
-        items.forEach(item => {
-            const qty = cart[item.name] ? cart[item.name].qty : 0;
+        items.forEach((item, index) => {
             const itemEl = document.createElement('div');
             itemEl.className = 'menu-item';
             
-            let imageHtml = item.img ? `<img src="${item.img}" alt="${item.name}" class="item-thumb">` : '';
+            let imgSource = item.img;
+            if (!imgSource || imgSource.trim() === "") {
+                if (defaultMenuData[key] && defaultMenuData[key][index]) {
+                    imgSource = defaultMenuData[key][index].img;
+                }
+            }
+
+            let imageHtml = imgSource ? `<img src="${imgSource}" alt="${item.name}" class="item-thumb">` : '';
             let descHtml = item.desc ? `<span class="item-desc">${item.desc}</span>` : '';
 
             itemEl.innerHTML = `
                 ${imageHtml}
-                <div class="item-content-bottom">
-                    <div class="item-info">
-                        <span class="item-name">${item.name}</span>
-                        ${descHtml}
-                        <span class="item-price">$${item.price.toLocaleString()}</span>
-                    </div>
-                    <div class="item-controls-wrapper">
-                        <span class="add-label">Agregar</span>
-                        <div class="item-controls">
-                            <button class="qty-btn" onclick="updateQuantity('${item.name.replace(/'/g, "\\'")}', ${item.price}, -1)">-</button>
-                            <span class="item-qty">${qty}</span>
-                            <button class="qty-btn" onclick="updateQuantity('${item.name.replace(/'/g, "\\'")}', ${item.price}, 1)">+</button>
-                        </div>
-                    </div>
+                <div class="item-info">
+                    <span class="item-name">${item.name}</span>
+                    ${descHtml}
                 </div>
+                <span class="item-price">$${item.price.toLocaleString()}</span>
             `;
             container.appendChild(itemEl);
         });
@@ -116,78 +112,8 @@ function filterCategory(categoryId) {
     event.currentTarget.classList.add('active');
 }
 
-function updateQuantity(name, price, change) {
-    if (!cart[name]) {
-        cart[name] = { price: price, qty: 0 };
-    }
-
-    cart[name].qty += change;
-
-    if (cart[name].qty <= 0) {
-        delete cart[name];
-    }
-
-    updateCartUI();
-    renderMenu();
-}
-
-function updateCartUI() {
-    const countSpan = document.getElementById('cart-count');
-    const totalSpan = document.getElementById('cart-total');
-    const itemsList = document.getElementById('cart-items-list');
-
-    let totalCount = 0;
-    let totalPrice = 0;
-
-    itemsList.innerHTML = '';
-    const entries = Object.entries(cart);
-
-    if (entries.length === 0) {
-        itemsList.innerHTML = `<li class="empty-cart-msg">Tu comanda está vacía. ¡Selecciona platos del menú!</li>`;
-    } else {
-        entries.forEach(([name, data]) => {
-            totalCount += data.qty;
-            let subtotal = data.price * data.qty;
-            totalPrice += subtotal;
-
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <span>${name} (x${data.qty})</span>
-                <span>$${subtotal.toLocaleString()}</span>
-            `;
-            itemsList.appendChild(li);
-        });
-    }
-
-    countSpan.textContent = totalCount;
-    totalSpan.textContent = `$${totalPrice.toLocaleString()}`;
-}
-
-function sendWhatsAppOrder() {
-    if (Object.keys(cart).length === 0) {
-        alert("La comanda está vacía. Selecciona al menos un producto antes de enviar.");
-        return;
-    }
-
-    let message = "Hola! Quisiera enviar la siguiente comanda desde el *Restaurant Arcoíris*:\n\n";
-    let totalPrice = 0;
-
-    for (const [name, data] of Object.entries(cart)) {
-        let subtotal = data.price * data.qty;
-        totalPrice += subtotal;
-        message += `• ${data.qty}x ${name} - $${subtotal.toLocaleString()}\n`;
-    }
-
-    message += `\n*Total estimado: $${totalPrice.toLocaleString()}*\n\n`;
-    message += "_Nota: Entiendo que el pago se realizará exclusivamente en persona con el garzón_";
-
-    const phone = "56988909927";
-    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-    window.open(whatsappUrl, '_blank');
-}
-
 window.onload = function() {
-    renderMenu();
-    updateCartUI();
+    if (typeof renderMenu === 'function' && document.getElementById('grid-dia-principales')) {
+        renderMenu();
+    }
 };

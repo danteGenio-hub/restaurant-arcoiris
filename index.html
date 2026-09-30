@@ -3,134 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Arcoíris - Menú Online</title>
+    <title>Restaurant Arcoíris - Carta Digital</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Encabezado con ambiente rústico -->
-    <header class="header">
+    <!-- Encabezado con efecto neón arcoíris superior y datos de contacto a la derecha -->
+    <header class="header rainbow-neon-border">
         <div class="header-overlay"></div>
         <div class="header-content">
-            <div class="logo-container">
-                <img src="assets/logo.png" alt="Logo Restaurant Arcoíris" class="logo">
+            
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="assets/img_logo/logo.png" alt="Logo Restaurant Arcoíris" class="logo">
+                </div>
+                <div class="header-text">
+                    <h1>Restaurant Arcoíris</h1>
+                    <p class="subtitle">“Donde Jorgito” — Cocina chilena con amor</p>
+                </div>
             </div>
-            <div class="header-text">
-                <h1>Restaurant Arcoíris</h1>
-                <p class="subtitle">“Donde Jorgito” — Cocina chilena con amor</p>
+
+            <!-- Datos de contacto con íconos a la derecha -->
+            <div class="header-contact">
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+56959902927</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>San Francisco 8430</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Restaurant_arcoiris</span>
+                </div>
             </div>
+
         </div>
     </header>
 
-    <!-- Navegación por Categorías (Estilo Rústico con Neón Arcoíris) -->
-    <nav class="category-nav rainbow-neon-border">
+    <!-- Navegación por Categorías -->
+    <nav class="category-nav">
         <button class="tab-btn active" onclick="filterCategory('dia')">Menú del Día</button>
         <button class="tab-btn" onclick="filterCategory('picar')">Para Picar</button>
         <button class="tab-btn" onclick="filterCategory('tomar')">Para Tomar</button>
         <button class="tab-btn" onclick="filterCategory('bajativos')">Bajativos</button>
     </nav>
 
-    <!-- Layout Principal -->
-    <div class="main-layout">
+    <!-- Contenedor Principal de la Carta -->
+    <main class="menu-container-full">
 
-        <!-- Columna del Menú -->
-        <main class="menu-container">
-
-            <!-- Sección: Menú del Día -->
-            <section id="dia" class="menu-section active">
-                <h2>Menú del Día y Especiales</h2>
-                <div class="section-banner">
-                    <img src="assets/fondo.png" alt="Platos chilenos">
-                </div>
-                
-                <div class="subcategory">
-                    <h3>Platos Principales</h3>
-                    <div class="items-grid" id="grid-dia-principales"></div>
-                </div>
-
-                <div class="subcategory">
-                    <h3>Especiales</h3>
-                    <div class="items-grid" id="grid-dia-especiales"></div>
-                </div>
-            </section>
-
-            <!-- Sección: Para Picar -->
-            <section id="picar" class="menu-section">
-                <h2>Para Picar</h2>
-                <div class="section-banner">
-                    <img src="assets/fondo.png" alt="Sandwiches y fritos">
-                </div>
-                
-                <div class="subcategory">
-                    <h3>Sandwiches</h3>
-                    <div class="items-grid" id="grid-picar-sandwiches"></div>
-                </div>
-
-                <div class="subcategory">
-                    <h3>Completos</h3>
-                    <div class="items-grid" id="grid-picar-completos"></div>
-                </div>
-
-                <div class="subcategory">
-                    <h3>Fritos</h3>
-                    <div class="items-grid" id="grid-picar-fritos"></div>
-                </div>
-            </section>
-
-            <!-- Sección: Para Tomar -->
-            <section id="tomar" class="menu-section">
-                <h2>Para Tomar</h2>
-                <div class="section-banner">
-                    <img src="assets/fondo.png" alt="Tragos">
-                </div>
-                <div class="items-grid" id="grid-tomar"></div>
-            </section>
-
-            <!-- Sección: Bajativos -->
-            <section id="bajativos" class="menu-section">
-                <h2>Bajativos</h2>
-                <div class="section-banner">
-                    <img src="assets/fondo.png" alt="Bajativos">
-                </div>
-                <div class="items-grid" id="grid-bajativos"></div>
-            </section>
-
-        </main>
-
-        <!-- Columna de la Comanda Digital Lateral Fija -->
-        <aside class="comanda-sidebar">
-            <div class="comanda-box rainbow-neon-glow">
-                <div class="comanda-header">
-                    <svg class="agenda-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
-                        <path d="M6 6h2"></path>
-                        <path d="M6 10h2"></path>
-                        <path d="M6 14h2"></path>
-                        <path d="M13.5 16.5l3.5-3.5 2.5 2.5-3.5 3.5H13.5z"></path>
-                    </svg>
-                    <span>Comanda Digital</span>
-                    <span id="cart-count" class="badge-count">0</span>
-                </div>
-                <div class="comanda-body">
-                    <ul id="cart-items-list">
-                        <li class="empty-cart-msg">Tu comanda está vacía. ¡Selecciona platos del menú!</li>
-                    </ul>
-                    <div class="comanda-footer">
-                        <div class="total-row">
-                            <span>Total estimado:</span>
-                            <span id="cart-total">$0</span>
-                        </div>
-                        <div class="payment-warning">
-                            ⚠️ <strong>Aviso:</strong> El pago se realizará <strong>exclusivamente en persona con el garzón</strong>.
-                        </div>
-                        <button class="whatsapp-btn" onclick="sendWhatsAppOrder()">Enviar Pedido por WhatsApp</button>
-                    </div>
-                </div>
+        <!-- Sección: Menú del Día -->
+        <section id="dia" class="menu-section active">
+            <h2>Menú del Día y Especiales</h2>
+            
+            <div class="subcategory">
+                <h3>Platos Principales</h3>
+                <div class="items-grid" id="grid-dia-principales"></div>
             </div>
-        </aside>
 
-    </div>
+            <div class="subcategory">
+                <h3>Especiales</h3>
+                <div class="items-grid" id="grid-dia-especiales"></div>
+            </div>
+        </section>
+
+        <!-- Sección: Para Picar -->
+        <section id="picar" class="menu-section">
+            <h2>Para Picar</h2>
+            
+            <div class="subcategory">
+                <h3>Sandwiches</h3>
+                <div class="items-grid" id="grid-picar-sandwiches"></div>
+            </div>
+
+            <div class="subcategory">
+                <h3>Completos</h3>
+                <div class="items-grid" id="grid-picar-completos"></div>
+            </div>
+
+            <div class="subcategory">
+                <h3>Fritos</h3>
+                <div class="items-grid" id="grid-picar-fritos"></div>
+            </div>
+        </section>
+
+        <!-- Sección: Para Tomar -->
+        <section id="tomar" class="menu-section">
+            <h2>Para Tomar</h2>
+            <div class="items-grid" id="grid-tomar"></div>
+        </section>
+
+        <!-- Sección: Bajativos -->
+        <section id="bajativos" class="menu-section">
+            <h2>Bajativos</h2>
+            <div class="items-grid" id="grid-bajativos"></div>
+        </section>
+
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <p class="footer-note">El pago se realiza exclusivamente en persona con el garzón.</p>
+    </footer>
 
     <script src="js/script.js"></script>
 </body>
