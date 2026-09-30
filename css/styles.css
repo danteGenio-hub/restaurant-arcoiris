@@ -1,88 +1,81 @@
 :root {
-    --bg-color: #2b1d11;
-    --paper-color: #f7f1e3;
-    --primary-color: #a02c18;
-    --secondary-color: #d35400;
-    --text-color: #2c2c2c;
-    --card-bg: #fffcf7;
-    --border-color: #e2d2b8;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
+    --primary-color: #9c27b0;
+    --paper-color: #fffaf0;
+    --text-color: #333333;
+    /* Colores patrios chilenos de acento */
+    --chile-blue: #003366;
+    --chile-red: #d52b1e;
 }
 
 body {
-    background-color: var(--bg-color);
-    background-image: radial-gradient(circle, #3d2719 0%, #21150c 100%);
-    color: var(--text-color);
-    padding-bottom: 40px;
-    min-height: 100vh;
-}
-
-/* Animación y Efecto de Neón Arcoíris Superior */
-@keyframes rainbowGlow {
-    0% { border-color: #ff0000; box-shadow: 0 4px 20px rgba(255, 0, 0, 0.7); }
-    20% { border-color: #ff8800; box-shadow: 0 4px 20px rgba(255, 136, 0, 0.7); }
-    40% { border-color: #ffee00; box-shadow: 0 4px 20px rgba(255, 238, 0, 0.7); }
-    60% { border-color: #00cc44; box-shadow: 0 4px 20px rgba(0, 204, 68, 0.7); }
-    80% { border-color: #0066ff; box-shadow: 0 4px 20px rgba(0, 102, 255, 0.7); }
-    100% { border-color: #9900ff; box-shadow: 0 4px 20px rgba(153, 0, 255, 0.7); }
-}
-
-.rainbow-neon-border {
-    border-bottom: 6px solid #ff8800;
-    animation: rainbowGlow 5s infinite;
-}
-
-/* Header Rústico - Ruta de fondo corregida y opacidad ajustada */
-.header {
-    position: relative;
-    background-image: url('../assets/img_logo/fondo.png');
+    font-family: 'Poppins', sans-serif;
+    /* Fondo con imagen webp y capa oscura semitransparente */
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('../assets/img_logo/fondo.webp') no-repeat center center fixed;
     background-size: cover;
-    background-position: center;
-    padding: 30px 20px;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
 }
 
-.header-overlay {
+.header {
+    background-color: rgba(255, 250, 240, 0.95);
+    padding: 20px;
+    border-bottom: 4px solid var(--chile-red); /* Borde inferior rojo chileno */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+/* Fina línea tricolor chilena (Azul, Blanco, Rojo) en la parte superior del header */
+.header::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    /* Capa translúcida más suave (0.55) para que el fondo se luzca bien */
-    background: rgba(43, 29, 17, 0.55);
+    height: 6px;
+    background: linear-gradient(90deg, var(--chile-blue) 33.3%, #ffffff 33.3%, #ffffff 66.6%, var(--chile-red) 66.6%);
+}
+
+.rainbow-neon-border {
+    position: relative;
+}
+
+.rainbow-neon-border::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
 }
 
 .header-content {
-    position: relative;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
     flex-wrap: wrap;
+    gap: 15px;
 }
 
 .header-left {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 15px;
 }
 
 .logo-container {
-    width: 85px;
-    height: 85px;
-    flex-shrink: 0;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    background: white;
-    border: 3px solid var(--secondary-color);
+    border: 2px solid var(--chile-blue);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo {
@@ -92,46 +85,36 @@ body {
 }
 
 .header-text h1 {
-    font-size: 2rem;
-    color: #fce4ec;
-    line-height: 1.2;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    margin: 0;
+    font-size: 1.8rem;
+    color: #4a154b;
 }
 
 .subtitle {
+    margin: 5px 0 0 0;
     font-size: 0.95rem;
-    color: #f39c12;
+    color: #555;
     font-style: italic;
-    margin-top: 2px;
     font-weight: 500;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
 }
 
-/* Estilos de Contacto a la Derecha con Iconos */
 .header-contact {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    background: rgba(43, 29, 17, 0.6);
-    padding: 10px 15px;
-    border-radius: 10px;
-    border: 1px solid #d4be9c;
+    gap: 5px;
+    font-size: 0.85rem;
+    color: #444;
 }
 
 .contact-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    color: #f7f1e3;
-    font-size: 0.9rem;
-    font-weight: 500;
+    gap: 8px;
 }
 
 .contact-item i {
-    color: var(--secondary-color);
-    font-size: 1rem;
-    width: 18px;
-    text-align: center;
+    color: var(--chile-red);
+    width: 16px;
 }
 
 /* Navegación por pestañas */
@@ -139,48 +122,44 @@ body {
     display: flex;
     justify-content: center;
     gap: 10px;
-    padding: 12px 15px;
-    background: #fff8ee;
-    border-radius: 35px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    position: sticky;
-    top: 15px;
-    z-index: 100;
-    overflow-x: auto;
-    max-width: 820px;
-    margin: 20px auto;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    flex-wrap: wrap;
 }
 
 .tab-btn {
-    background: #e9dac1;
-    color: #4a3319;
+    background: var(--paper-color);
     border: none;
     padding: 10px 20px;
-    border-radius: 20px;
+    border-radius: 25px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-bottom: 3px solid transparent;
 }
 
 .tab-btn.active, .tab-btn:hover {
     background: var(--primary-color);
     color: white;
+    border-bottom: 3px solid var(--chile-red);
 }
 
-/* Contenedor principal de la carta */
+/* Contenedores de menú */
 .menu-container-full {
-    max-width: 950px;
-    margin: 25px auto;
-    padding: 30px;
-    background: var(--paper-color);
-    border-radius: 14px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    border: 2px solid #d4be9c;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 15px;
 }
 
 .menu-section {
     display: none;
+    background: var(--paper-color);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    margin-bottom: 30px;
+    border-top: 4px solid var(--chile-blue); /* Detalle azul chileno superior en las tarjetas */
 }
 
 .menu-section.active {
@@ -188,107 +167,86 @@ body {
 }
 
 .menu-section h2 {
-    color: var(--primary-color);
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--secondary-color);
-    padding-bottom: 5px;
-    font-size: 1.6rem;
-}
-
-.subcategory {
-    margin-bottom: 25px;
+    color: #4a154b;
+    border-bottom: 2px solid #e0d0b0;
+    padding-bottom: 8px;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .subcategory h3 {
-    font-size: 1.2rem;
     color: #6e4e2b;
-    margin-bottom: 12px;
-    border-left: 4px solid var(--secondary-color);
+    margin-top: 20px;
+    font-size: 1.2rem;
+    border-left: 4px solid var(--chile-red);
     padding-left: 8px;
 }
 
-/* Cuadrícula de 2 columnas para la carta */
 .items-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
 }
 
-/* Tarjeta del plato con imagen al costado izquierdo */
 .menu-item {
-    background: var(--card-bg);
-    padding: 10px 12px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
-    border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     gap: 12px;
+    background: #ffffff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #e0d0b0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.menu-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
 }
 
 .item-thumb {
-    width: 52px;
-    height: 52px;
-    border-radius: 6px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
     object-fit: cover;
+    border: 2px solid #d4be9c;
     flex-shrink: 0;
-    border: 1px solid #d4be9c;
 }
 
 .item-info {
     display: flex;
     flex-direction: column;
-    gap: 2px;
     flex-grow: 1;
 }
 
 .item-name {
     font-weight: 600;
-    font-size: 0.9rem;
-    color: #3b2816;
-    line-height: 1.2;
+    font-size: 0.95rem;
+    color: #222;
 }
 
 .item-desc {
-    font-size: 0.72rem;
-    color: #7d6349;
-    font-style: italic;
+    font-size: 0.75rem;
+    color: #666;
 }
 
 .item-price {
     font-weight: 700;
-    color: var(--primary-color);
-    font-size: 0.9rem;
-    margin-left: auto;
-    padding-left: 10px;
-    flex-shrink: 0;
+    color: #b85d00;
+    font-size: 1rem;
+    white-space: nowrap;
 }
 
-/* Pie de página */
 .footer {
     text-align: center;
     padding: 20px;
-    color: #d4be9c;
-    border-top: 1px solid #3d2719;
+    color: white;
+    font-size: 0.85rem;
+    background: rgba(0, 0, 0, 0.6);
     margin-top: 40px;
-}
-
-.footer-note {
-    font-style: italic;
-    color: #f39c12;
-    font-size: 0.9rem;
-}
-
-/* Responsivo para celulares */
-@media (max-width: 850px) {
-    .header-content {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .header-contact {
-        width: 100%;
-    }
-    .items-grid {
-        grid-template-columns: 1fr;
-    }
+    border-top: 2px solid var(--chile-blue);
 }
