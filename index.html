@@ -10,106 +10,47 @@
 </head>
 <body>
 
-    <!-- Encabezado con detalles patrios chilenos -->
     <header class="header rainbow-neon-border">
         <div class="header-overlay"></div>
         <div class="header-content">
-            
             <div class="header-left">
                 <div class="logo-container">
-                    <img src="assets/img_logo/logo.webp" alt="Logo Restaurant Arcoíris" class="logo">
+                    <img src="assets/img_logo/logo.webp" alt="Logo" class="logo">
                 </div>
                 <div class="header-text">
                     <h1>Restaurant Arcoíris</h1>
-                    <!-- Subtítulo con guiño a la cocina chilena -->
-                    <p class="subtitle"><i class="fa-solid fa-utensils" style="color: #d52b1e;"></i> “Donde Jorgito” — Tradición y sabor chileno</p>
+                    <p class="subtitle">🍽️ "Donde Jorgito" — Tradición y sabor chileno</p>
                 </div>
             </div>
-
-            <!-- Datos de contacto a la derecha -->
             <div class="header-contact">
-                <div class="contact-item">
-                    <i class="fa-solid fa-phone"></i>
-                    <span>+56959902927</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <span>San Francisco 8430</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fa-brands fa-instagram"></i>
-                    <span>Restaurant_arcoiris</span>
-                </div>
+                <div class="contact-item"><i class="fa-solid fa-phone"></i> +56959902927</div>
+                <div class="contact-item"><i class="fa-solid fa-location-dot"></i> San Francisco 8430</div>
+                <div class="contact-item"><i class="fa-brands fa-instagram"></i> Restaurant_arcoiris</div>
             </div>
-
         </div>
     </header>
 
-    <!-- Navegación por Categorías -->
+    <!-- Pestañas de navegación idénticas -->
     <nav class="category-nav">
-        <button class="tab-btn active" onclick="filterCategory('dia')">Menú del Día</button>
-        <button class="tab-btn" onclick="filterCategory('picar')">Para Picar</button>
-        <button class="tab-btn" onclick="filterCategory('tomar')">Para Tomar</button>
-        <button class="tab-btn" onclick="filterCategory('bajativos')">Bajativos</button>
+        <button class="tab-btn active" onclick="openCategory(event, 'menu-dia')">Menú del Día</button>
+        <button class="tab-btn" onclick="openCategory(event, 'picar')">Para Picar</button>
+        <button class="tab-btn" onclick="openCategory(event, 'tomar')">Para Tomar</button>
+        <button class="tab-btn" onclick="openCategory(event, 'bajativos')">Bajativos</button>
     </nav>
 
-    <!-- Contenedor Principal de la Carta -->
+    <!-- Contenedor dinámico de secciones -->
     <main class="menu-container-full">
-
-        <!-- Sección: Menú del Día -->
-        <section id="dia" class="menu-section active">
-            <h2><i class="fa-solid fa-bowl-food" style="color: #003366; font-size: 1.3rem;"></i> Menú del Día y Especiales</h2>
-            
-            <div class="subcategory">
-                <h3>Platos Principales</h3>
-                <div class="items-grid" id="grid-dia-principales"></div>
-            </div>
-
-            <div class="subcategory">
-                <h3>Especiales</h3>
-                <div class="items-grid" id="grid-dia-especiales"></div>
-            </div>
-        </section>
-
-        <!-- Sección: Para Picar -->
-        <section id="picar" class="menu-section">
-            <h2><i class="fa-solid fa-burger" style="color: #003366; font-size: 1.3rem;"></i> Para Picar</h2>
-            
-            <div class="subcategory">
-                <h3>Sandwiches</h3>
-                <div class="items-grid" id="grid-picar-sandwiches"></div>
-            </div>
-
-            <div class="subcategory">
-                <h3>Completos</h3>
-                <div class="items-grid" id="grid-picar-completos"></div>
-            </div>
-
-            <div class="subcategory">
-                <h3>Fritos</h3>
-                <div class="items-grid" id="grid-picar-fritos"></div>
-            </div>
-        </section>
-
-        <!-- Sección: Para Tomar -->
-        <section id="tomar" class="menu-section">
-            <h2><i class="fa-solid fa-wine-glass" style="color: #003366; font-size: 1.3rem;"></i> Para Tomar</h2>
-            <div class="items-grid" id="grid-tomar"></div>
-        </section>
-
-        <!-- Sección: Bajativos -->
-        <section id="bajativos" class="menu-section">
-            <h2><i class="fa-solid fa-glass-water" style="color: #003366; font-size: 1.3rem;"></i> Bajativos</h2>
-            <div class="items-grid" id="grid-bajativos"></div>
-        </section>
-
+        <section id="menu-dia" class="menu-section active"></section>
+        <section id="picar" class="menu-section"></section>
+        <section id="tomar" class="menu-section"></section>
+        <section id="bajativos" class="menu-section"></section>
     </main>
 
-    <!-- Pie de página -->
     <footer class="footer">
-        <p class="footer-note">El pago se realiza exclusivamente en persona con el garzón. ¡Buen provecho!</p>
+        <p>&copy; 2026 Restaurant Arcoíris - Todos los derechos reservados.</p>
     </footer>
 
+    <!-- Script principal -->
     <script src="js/script.js"></script>
 </body>
 </html>

@@ -2,14 +2,12 @@
     --primary-color: #9c27b0;
     --paper-color: #fffaf0;
     --text-color: #333333;
-    /* Colores patrios chilenos de acento */
     --chile-blue: #003366;
     --chile-red: #d52b1e;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
-    /* Fondo con imagen webp y capa oscura semitransparente */
     background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('../assets/img_logo/fondo.webp') no-repeat center center fixed;
     background-size: cover;
     color: var(--text-color);
@@ -20,12 +18,11 @@ body {
 .header {
     background-color: rgba(255, 250, 240, 0.95);
     padding: 20px;
-    border-bottom: 4px solid var(--chile-red); /* Borde inferior rojo chileno */
+    border-bottom: 4px solid var(--chile-red);
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     position: relative;
 }
 
-/* Fina línea tricolor chilena (Azul, Blanco, Rojo) en la parte superior del header */
 .header::before {
     content: '';
     position: absolute;
@@ -159,7 +156,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     margin-bottom: 30px;
-    border-top: 4px solid var(--chile-blue); /* Detalle azul chileno superior en las tarjetas */
+    border-top: 4px solid var(--chile-blue);
 }
 
 .menu-section.active {
@@ -176,19 +173,23 @@ body {
     gap: 10px;
 }
 
-.subcategory h3 {
-    color: #6e4e2b;
+.subcategory {
     margin-top: 20px;
-    font-size: 1.2rem;
+}
+
+.subcategory h3 {
+    color: #b85d00;
+    font-size: 1.1rem;
     border-left: 4px solid var(--chile-red);
     padding-left: 8px;
+    margin-bottom: 12px;
 }
 
 .items-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 15px;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .menu-item {

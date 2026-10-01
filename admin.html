@@ -4,104 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración - Restaurant Arcoíris</title>
+    
+    <!-- Enlace a los estilos generales -->
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Fuentes y Iconos -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .admin-container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 30px;
-            background: var(--paper-color);
-            border-radius: 14px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            border: 2px solid #d4be9c;
-        }
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        .admin-table th, .admin-table td {
-            padding: 10px;
-            border-bottom: 1px solid #d4be9c;
-            text-align: left;
-            font-size: 0.9rem;
-        }
-        .admin-table th {
-            color: var(--primary-color);
-        }
-        .admin-input {
-            width: 100%;
-            padding: 6px 10px;
-            border-radius: 6px;
-            border: 1px solid #d4be9c;
-            font-size: 0.85rem;
-        }
-        .save-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: background 0.3s;
-        }
-        .save-btn:hover {
-            background: #781e0e;
-        }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #f39c12;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        /* Estilos de login y el ojo */
-        #login-screen {
-            max-width: 400px;
-            margin: 80px auto;
-            padding: 30px;
-            background: var(--paper-color);
-            border-radius: 14px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            border: 2px solid #d4be9c;
-            text-align: center;
-        }
-        #admin-panel-content {
-            display: none;
-        }
-        .password-wrapper {
-            position: relative;
-            width: 100%;
-            margin: 15px 0;
-        }
-        .login-input {
-            width: 100%;
-            padding: 10px;
-            padding-right: 40px; /* Espacio para el icono del ojo */
-            border-radius: 6px;
-            border: 1px solid #d4be9c;
-            box-sizing: border-box;
-        }
-        .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #7d6349;
-            font-size: 1.1rem;
-        }
-        .toggle-password:hover {
-            color: #a02c18;
-        }
-    </style>
+    
+    <!-- Librería oficial de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -110,7 +22,7 @@
         <div class="header-content">
             <div class="header-left">
                 <div class="logo-container">
-                    <img src="assets/img_logo/logo.png" alt="Logo" class="logo">
+                    <img src="assets/img_logo/logo.webp" alt="Logo" class="logo">
                 </div>
                 <div class="header-text">
                     <h1>Panel Administrador</h1>
@@ -122,17 +34,26 @@
 
     <!-- Pantalla de Inicio de Sesión -->
     <div id="login-screen">
-        <h2 style="color: var(--primary-color); margin-bottom: 10px;">Acceso Restringido</h2>
-        <p style="font-size: 0.9rem; color: #555;">Ingrese la contraseña del administrador</p>
+        <h2 style="color: var(--primary-color); margin-bottom: 10px;">Acceso Seguro</h2>
+        <p style="font-size: 0.9rem; color: #555;">Ingrese sus credenciales de administrador</p>
         
-        <div class="password-wrapper">
-            <input type="password" id="admin-pass" class="login-input" placeholder="Contraseña">
-            <!-- Icono del ojo para ver/ocultar contraseña -->
-            <i class="far fa-eye toggle-password" id="togglePassIcon" onclick="togglePasswordVisibility()"></i>
-        </div>
+        <input type="email" id="admin-email" class="login-input" placeholder="Correo electrónico">
+        <input type="password" id="admin-pass" class="login-input" placeholder="Contraseña">
+        
+        <button class="save-btn" onclick="loginWithSupabase()" style="width: 100%; margin-top: 10px;">Ingresar</button>
+        <p id="auth-msg"></p>
+        
+        <a class="forgot-pass-link" onclick="recoverPassword()">¿Olvidaste tu contraseña?</a>
+    </div>
 
-        <button class="save-btn" onclick="checkPassword()">Ingresar</button>
-        <p id="error-msg" style="color: red; font-size: 0.85rem; display: none;">Contraseña incorrecta</p>
+    <!-- Pantalla para Establecer Nueva Contraseña -->
+    <div id="update-password-screen">
+        <h2 style="color: var(--primary-color); margin-bottom: 10px;">Nueva Contraseña</h2>
+        <p style="font-size: 0.9rem; color: #555;">Ingresa tu nueva clave de acceso</p>
+        
+        <input type="password" id="new-admin-pass" class="login-input" placeholder="Nueva contraseña">
+        <button class="save-btn" onclick="updatePassword()" style="width: 100%; margin-top: 10px;">Actualizar Contraseña</button>
+        <p id="update-msg"></p>
     </div>
 
     <!-- Panel de Administración -->
@@ -144,89 +65,9 @@
         <div id="admin-sections-container"></div>
     </div>
 
+    <!-- Scripts externos enlazados en orden correcto -->
     <script src="js/script.js"></script>
-    <script>
-        // --- CONFIGURACIÓN ---
-        // CONTRASEÑA ACTUAL DEL ADMINISTRADOR:
-        const PASSWORD_SECRETA = "jorgito2026"; 
-        // ---------------------
-
-        function checkPassword() {
-            const inputVal = document.getElementById('admin-pass').value;
-            if (inputVal === PASSWORD_SECRETA) {
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('admin-panel-content').style.display = 'block';
-                renderAdminPanel();
-            } else {
-                document.getElementById('error-msg').style.display = 'block';
-            }
-        }
-
-        // Función para mostrar/ocultar la contraseña
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('admin-pass');
-            const icon = document.getElementById('togglePassIcon');
-            
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash'); // Cambia el icono a ojo tachado
-            } else {
-                passwordInput.type = "password";
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye'); // Cambia el icono de vuelta a ojo normal
-            }
-        }
-
-        function renderAdminPanel() {
-            const container = document.getElementById('admin-sections-container');
-            container.innerHTML = '';
-
-            for (const [catKey, items] of Object.entries(menuData)) {
-                let sectionDiv = document.createElement('div');
-                sectionDiv.innerHTML = `<h3 style="margin-top: 20px; color: #6e4e2b;">Categoría: ${catKey.toUpperCase()}</h3>`;
-                
-                let table = document.createElement('table');
-                table.className = 'admin-table';
-                table.innerHTML = `
-                    <tr>
-                        <th>Nombre del Plato</th>
-                        <th>Precio ($)</th>
-                        <th>Ruta de Imagen (URL o local)</th>
-                    </tr>
-                `;
-
-                items.forEach((item, index) => {
-                    let tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><input type="text" class="admin-input" id="name-${catKey}-${index}" value="${item.name}"></td>
-                        <td><input type="number" class="admin-input" id="price-${catKey}-${index}" value="${item.price}"></td>
-                        <td><input type="text" class="admin-input" id="img-${catKey}-${index}" value="${item.img || ''}"></td>
-                    `;
-                    table.appendChild(tr);
-                });
-
-                sectionDiv.appendChild(table);
-                container.appendChild(sectionDiv);
-            }
-        }
-
-        function saveChanges() {
-            for (const [catKey, items] of Object.entries(menuData)) {
-                items.forEach((item, index) => {
-                    const nameInput = document.getElementById(`name-${catKey}-${index}`);
-                    const priceInput = document.getElementById(`price-${catKey}-${index}`);
-                    const imgInput = document.getElementById(`img-${catKey}-${index}`);
-
-                    if (nameInput) item.name = nameInput.value;
-                    if (priceInput) item.price = Number(priceInput.value);
-                    if (imgInput) item.img = imgInput.value;
-                });
-            }
-
-            localStorage.setItem('restaurant_menu_data', JSON.stringify(menuData));
-            alert("¡Cambios guardados con éxito! Ya se reflejan en la carta digital.");
-        }
-    </script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 </html>
